@@ -21,7 +21,7 @@ node
   stage('git checkout')
   {
     notifyBuild('STARTED')
-    git branch: 'development', url: 'https://github.com/kkdevopsb5/maven-webapplication-project-kkfunda.git'
+    git branch: 'development', url: 'https://github.com/KGDevops-b5may/maven-webapp-project-kgdevops.git'
   } 
 
     stage('COMPILE')
@@ -50,9 +50,9 @@ node
       
       sh """
 
-      curl -u kk:password \
+      curl -u nagesh:password \
 --upload-file /var/lib/jenkins/workspace/jio-scripted-way-PL/target/maven-web-application.war \
-"http://3.109.2.100:9090/manager/text/deploy?path=/maven-web-application&update=true"
+"http://13.201.156.119:9090//manager/text/deploy?path=/maven-web-application&update=true"
           
         """
     }
@@ -97,5 +97,3 @@ def notifyBuild(String buildStatus = 'STARTED') {
   slackSend (color: colorCode, message: summary, channel: '#jio-devteam')
   slackSend (color: colorCode, message: summary, channel: '#jio-devops')
 }
-
-
