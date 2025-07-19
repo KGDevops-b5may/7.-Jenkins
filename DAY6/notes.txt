@@ -93,34 +93,42 @@ node
 
 step 5:  upload artifact into nexus
 
+My Final Scripted way Pipe line
+
 node
 {
-   def mavenHome=tool name: "maven-3.9.8"
-   stage('checkout')
-   {
-   git branch: 'development', credentialsId: 'e5b73679-3105-4429-a5b4-b303fd9e35a0', url: 'https://github.com/kkeducation12345/maven-web-app-project-kk-funda.git'
-   }
-   stage('build')
-   {
-  sh "${mavenHome}/bin/mvn clean package"
-   }
-  stage('SonarQubeReport')
-   {
-  sh "${mavenHome}/bin/mvn clean package sonar:sonar"
-   }
-
- stage('Uploadarifacttonexus')
-   {
-  sh "${mavenHome}/bin/mvn clean package sonar:sonar deploy"
-   }
+    
+    // /var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/maven-3.9.9/bin
+    def mavenHome=tool name: "maven-3.9.9"
+    
+    stage('git checkout')
+    {
+    git branch: 'development', url: 'https://github.com/KGDevops-b5may/maven-webapp-project-kgdevops.git'
+    }
+    stage('COMPILE')
+    {
+      sh "${mavenHome}/bin/mvn clean compile"
+    }
+    stage('Build')
+    {
+      sh "${mavenHome}/bin/mvn clean package"    
+    }
+    stage('SQ Report')
+    {
+      sh "${mavenHome}/bin/mvn sonar:sonar"   
+    }
+    stage('Upload artifact')
+    {
+      sh "${mavenHome}/bin/mvn clean deploy"   
+    }
     stage('Deploy to Tomcat') {
         echo "Deploying WAR file using curl..."
 
         sh """
-            curl -u nagesh:password \
-            --upload-file /var/lib/jenkins/workspace/jio-scripted-way-pipeline-develoment/target/maven-web-application.war \
-            "http://3.108.194.157:8080/manager/text/deploy?path=/maven-web-application&update=true"
+        curl -u nagesh:password \
+            --upload-file /var/lib/jenkins/workspace/jio-scripted-way-PL/target/maven-web-application.war \
+            "http://13.201.156.119:9090/manager/text/deploy?path=/maven-web-application&update=true"
         """
     }
-  
-}
+    
+} // node ending
