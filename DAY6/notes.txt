@@ -117,7 +117,7 @@ node
         echo "Deploying WAR file using curl..."
 
         sh """
-            curl -u kkfunda:password \
+            curl -u nagesh:password \
             --upload-file /var/lib/jenkins/workspace/jio-scripted-way-pipeline-develoment/target/maven-web-application.war \
             "http://3.108.194.157:8080/manager/text/deploy?path=/maven-web-application&update=true"
         """
