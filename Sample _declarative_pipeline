@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('stage 1') {
+        steps {
+            echo 'Hello World'
+        }
+    }
+    
+        stage('stage 2') {
+        steps {
+            echo 'Hello Chitti'
+            }
+        }
+        
+        stage('stage 3') {
+            steps {
+                echo 'Hello Nihal'
+            }
+        }
+        
+    } // stages closing
+}  // pipeline ending
